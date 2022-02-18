@@ -1,14 +1,14 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/Logo';
-import SignIn from '../../core/services/AuthenticationService';
+import AuthenticationService from '../../core/services/AuthenticationService';
 import Alert from '../../components/alert/Alert';
-import {
-  ValidateEmail,
-  ValidatePassword,
-} from '../../core/pipes/RegexValidations';
+import RegexValidations from '../../core/pipes/RegexValidations';
+import TokenService from '../../core/services/TokenService';
+import GlobalContext from '../../core/contexts/GlobalContext';
 
 const Login = () => {
+  const { refreshUserData } = useContext(GlobalContext);
   const [showAlert, setShowAlert] = useState({
     visibility: false,
     message: '',
@@ -25,11 +25,21 @@ const Login = () => {
       password,
     };
 
-    const resultSignIn = await SignIn(userToSignIn);
-    if (resultSignIn.isAuthenticated) {
-      localStorage.setItem('IS_AUTHENTICATED', resultSignIn.isAuthenticated);
-      localStorage.setItem('USER_DATA', resultSignIn.data);
-      localStorage.setItem('USER_TOKEN', resultSignIn.data.access_token);
+    try {
+      const resultSignIn = await AuthenticationService.SignIn(userToSignIn);
+      if (resultSignIn.success) {
+        TokenService.setUserData(resultSignIn.data);
+        refreshUserData();
+      }
+      setShowAlert({
+        visibility: false,
+        message: '',
+      });
+    } catch (error) {
+      setShowAlert({
+        visibility: true,
+        message: 'Usuario y/o contraseña incorrecta.',
+      });
     }
   };
 
@@ -39,8 +49,8 @@ const Login = () => {
 
     const isValid =
       nameInput === 'txtEmail'
-        ? ValidateEmail(valueInput)
-        : ValidatePassword(valueInput);
+        ? RegexValidations.ValidateEmail(valueInput)
+        : RegexValidations.ValidatePassword(valueInput);
     let messageValidation =
       nameInput === 'txtEmail'
         ? 'El correo no es válido'

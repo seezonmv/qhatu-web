@@ -8,4 +8,9 @@ const ValidatePassword = (text) => {
   return regex.test(text);
 };
 
-export { ValidateEmail, ValidatePassword };
+const RegexValidations = {
+  ValidateEmail,
+  ValidatePassword,
+};
+
+export default RegexValidations;
