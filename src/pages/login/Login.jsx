@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/Logo';
 import AuthenticationService from '../../core/services/AuthenticationService';
@@ -8,11 +8,9 @@ import TokenService from '../../core/services/TokenService';
 import GlobalContext from '../../core/contexts/GlobalContext';
 
 const Login = () => {
-  const { refreshUserData } = useContext(GlobalContext);
-  const [showAlert, setShowAlert] = useState({
-    visibility: false,
-    message: '',
-  });
+  const { refreshUserData, alertMessage, refreshAlertMessage } =
+    useContext(GlobalContext);
+
   const refEmail = useRef(null);
   const refPassword = useRef(null);
 
@@ -31,12 +29,12 @@ const Login = () => {
         TokenService.setUserData(resultSignIn.data);
         refreshUserData();
       }
-      setShowAlert({
+      refreshAlertMessage({
         visibility: false,
         message: '',
       });
     } catch (error) {
-      setShowAlert({
+      refreshAlertMessage({
         visibility: true,
         message: 'Usuario y/o contraseña incorrecta.',
       });
@@ -56,7 +54,7 @@ const Login = () => {
         ? 'El correo no es válido'
         : 'La contraseña debe tener un minimo de 6 caracteres.';
 
-    setShowAlert({
+    refreshAlertMessage({
       visibility: !isValid,
       message: messageValidation,
     });
@@ -94,7 +92,7 @@ const Login = () => {
         <button
           className="btn btn-lg btn-primary mb-2"
           onClick={handleClickSignIn}
-          disabled={showAlert.visibility}
+          disabled={alertMessage.visibility}
         >
           Ingresar
         </button>
@@ -102,7 +100,9 @@ const Login = () => {
           Registrar
         </Link>
         <div className="mt-3">
-          {showAlert.visibility ? <Alert message={showAlert.message} /> : null}
+          {alertMessage.visibility ? (
+            <Alert message={alertMessage.message} />
+          ) : null}
         </div>
       </div>
     </>
