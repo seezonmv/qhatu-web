@@ -1,21 +1,22 @@
-import React, { useRef, useContext, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import AuthenticationService from '../../core/services/AuthenticationService';
 import RegexValidations from '../../core/pipes/RegexValidations';
-import GlobalContext from '../../core/contexts/GlobalContext';
 import RegisterStateless from './RegisterStateless';
+import { useSelector, useDispatch } from 'react-redux';
+import QhatuAction from '../../core/actions/qhatuAction';
 
 const RegisterStateful = () => {
   const history = useHistory();
-
-  const { alertMessage, refreshAlertMessage, modal, refreshModal } =
-    useContext(GlobalContext);
+  const dispatch = useDispatch();
+  const alertMessage = useSelector((state) => state.alertMessage);
+  const modal = useSelector((state) => state.modal);
 
   useEffect(() => {
     return () => {
-      refreshAlertMessage({ visibility: false });
-      refreshModal({ visibility: false });
+      dispatch(QhatuAction.alertMessageAction(false));
+      dispatch(QhatuAction.modalAction(false));
     };
   }, []);
 
@@ -57,21 +58,24 @@ const RegisterStateful = () => {
 
       const resultSignUp = await AuthenticationService.SignUp(userToSignUp);
       if (resultSignUp.success) {
-        refreshModal({
-          visibility: true,
-          title: 'Bienvenido 😁',
-          subtitle: 'El usuario se registró correctamente.',
-          callback: () => {
-            history.push('/login');
-          },
-        });
+        dispatch(
+          QhatuAction.modalAction(
+            true,
+            'Bienvenido 😁',
+            'El usuario se registró correctamente.',
+            () => {
+              history.push('/login');
+            }
+          )
+        );
       }
     } else {
-      refreshAlertMessage({
-        visibility: true,
-        message:
-          'Debe ingresar nombres, apellidos, correo y una contraseña para poderse registrar.',
-      });
+      dispatch(
+        QhatuAction.alertMessageAction(
+          true,
+          'Debe ingresar nombres, apellidos, correo y una contraseña para poderse registrar.'
+        )
+      );
     }
   };
 
@@ -88,10 +92,7 @@ const RegisterStateful = () => {
         ? 'Debe ingresar un correo válido.'
         : 'Debe ingresar mas de 6 caracteres.';
 
-    refreshAlertMessage({
-      visibility: !isValid,
-      message: messageValidation,
-    });
+    dispatch(QhatuAction.alertMessageAction(!isValid, messageValidation));
   };
 
   return (

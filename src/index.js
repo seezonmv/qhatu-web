@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import App from './App';
-import GlobalProvider from './core/providers/GlobalProvider';
+
+import { Provider } from 'react-redux';
+import qhatuStore from './core/stores/qhatuStore';
 
 ReactDOM.render(
-  <GlobalProvider>
+  <Provider store={qhatuStore}>
     <App />
-  </GlobalProvider>,
+  </Provider>,
   document.getElementById('app')
 );

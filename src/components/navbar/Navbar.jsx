@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { FaSignOutAlt } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import GlobalContext from '../../core/contexts/GlobalContext';
 import TokenService from '../../core/services/TokenService';
+import QhatuAction from '../../core/actions/qhatuAction';
 
 const Navbar = () => {
-  const { refreshUserData } = useContext(GlobalContext);
+  const dispatch = useDispatch();
   return (
     <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
       <Link className="navbar-brand col-md-3 col-lg-2 me-0 px-3" to="/home">
@@ -17,7 +18,7 @@ const Navbar = () => {
             className="nav-link px-3"
             onClick={() => {
               TokenService.removeUserData();
-              refreshUserData();
+              dispatch(QhatuAction.userDataAction());
             }}
           >
             <FaSignOutAlt /> Cerrar Sesión
