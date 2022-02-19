@@ -5,6 +5,8 @@ const GlobalContext = createContext({
   refreshUserData: () => {},
   alertMessage: null,
   refreshAlertMessage: () => {},
+  modal: null,
+  refreshModal: () => {},
 });
 
 export default GlobalContext;

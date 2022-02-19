@@ -10,6 +10,13 @@ const GlobalProvider = ({ children }) => {
     message: '',
   });
 
+  const [modal, setModal] = useState({
+    visibility: false,
+    title: '',
+    subtitle: '',
+    callback: () => {},
+  });
+
   const refreshUserData = () => {
     setUserData(TokenService.getUserData());
   };
@@ -21,11 +28,22 @@ const GlobalProvider = ({ children }) => {
     });
   };
 
+  const refreshModal = ({ visibility, title, subtitle, callback }) => {
+    setModal({
+      visibility: visibility,
+      title: title,
+      subtitle: subtitle,
+      callback: callback,
+    });
+  };
+
   const globalContext = {
     userData: userData,
     refreshUserData: refreshUserData,
     alertMessage: alertMessage,
     refreshAlertMessage: refreshAlertMessage,
+    modal: modal,
+    refreshModal: refreshModal,
   };
 
   return (

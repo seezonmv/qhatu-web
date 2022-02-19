@@ -3,16 +3,16 @@ import PrivateRouteHoc from './core/hoc/PrivateRouteHoc';
 import PublicRouteHoc from './core/hoc/PublicRouteHoc';
 
 import Home from './pages/home/Home';
-import Login from './pages/login/Login';
+import LoginStateful from './pages/login/LoginStateful';
 import Purchases from './pages/purchases/Purchases';
-import Register from './pages/register/Register';
+import RegisterStateful from './pages/register/RegisterStateful';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <PublicRouteHoc path="/login" component={Login} />
-        <PublicRouteHoc path="/register" component={Register} />
+        <PublicRouteHoc path="/login" component={LoginStateful} />
+        <PublicRouteHoc path="/register" component={RegisterStateful} />
         <PrivateRouteHoc path="/home" component={Home} />
         <PrivateRouteHoc path="/purchases" component={Purchases} />
         <Route exact path="/">
