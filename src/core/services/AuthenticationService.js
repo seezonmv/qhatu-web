@@ -1,18 +1,15 @@
-import axios from 'axios';
+import instance from '../../axios/instance';
 
 const SignIn = async (userToSignIn) => {
-  let apiUrl =
-    process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PATH_SIGNIN;
-
-  let username = process.env.REACT_APP_USERNAME_CLIENT_API;
-  let password = process.env.REACT_APP_PASSWORD_CLIENT_API;
-
+  let pathSignIn = process.env.REACT_APP_QHATU_API_PATH_SIGNIN;
+  let username = process.env.REACT_APP_QHATU_API_USERNAME_CLIENT;
+  let password = process.env.REACT_APP_QHATU_API_PASSWORD_CLIENT;
   const body = new URLSearchParams();
-  body.append('grant_type', process.env.REACT_APP_GRANT_TYPE_CLIENT_API);
+  body.append('grant_type', process.env.REACT_APP_QHATU_API_GRANT_TYPE_CLIENT);
   body.append('username', userToSignIn.email);
   body.append('password', userToSignIn.password);
 
-  const response = await axios.post(apiUrl, body, {
+  const response = await instance.post(pathSignIn, body, {
     auth: {
       username,
       password,
@@ -26,10 +23,8 @@ const SignIn = async (userToSignIn) => {
 };
 
 const SignUp = async (userToSignUp) => {
-  let apiUrl =
-    process.env.REACT_APP_API_URL + process.env.REACT_APP_API_PATH_SIGNUP;
-  console.log(apiUrl);
-  const response = await axios.post(apiUrl, userToSignUp, {});
+  let pathSignUp = process.env.REACT_APP_QHATU_API_PATH_SIGNUP;
+  const response = await instance.post(pathSignUp, userToSignUp, {});
 
   return {
     success: response.status === 200,

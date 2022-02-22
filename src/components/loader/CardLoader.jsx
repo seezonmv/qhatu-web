@@ -1,7 +1,7 @@
 import React from 'react';
 import Skeleton from 'react-loading-skeleton';
 
-const RickandMortyLoader = () => {
+const CardLoader = () => {
   return (
     <>
       <div className="row row-cols-md-2">
@@ -138,4 +138,4 @@ const RickandMortyLoader = () => {
   );
 };
 
-export default RickandMortyLoader;
+export default CardLoader;

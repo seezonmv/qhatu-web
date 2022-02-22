@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import RickandMortyLoader from '../../components/loader/RickandMortyLoader';
+import CardLoader from '../../components/loader/CardLoader';
 import RickAndMortyService from '../../core/services/RickAndMortyService';
 
 const Home = () => {
@@ -11,6 +11,7 @@ const Home = () => {
   const getCharacters = async () => {
     setCharacters({ loading: true });
     const dataCharacters = await RickAndMortyService.getCharacters();
+
     setCharacters({
       loading: false,
       data: dataCharacters,
@@ -18,9 +19,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      getCharacters();
-    }, 5000);
+    getCharacters();
   }, []);
 
   return (
@@ -29,7 +28,7 @@ const Home = () => {
         <h1 className="h2">Home</h1>
       </div>
       {characters.loading ? (
-        <RickandMortyLoader />
+        <CardLoader />
       ) : (
         <>
           <div className="row row-cols-md-2">
