@@ -1,6 +1,7 @@
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import PrivateRouteHoc from './core/hoc/PrivateRouteHoc';
 import PublicRouteHoc from './core/hoc/PublicRouteHoc';
+import NotFound from './pages/404/NotFound';
 
 import Home from './pages/home/Home';
 import LoginStateful from './pages/login/LoginStateful';
@@ -18,6 +19,7 @@ const App = () => {
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
+        <Route component={NotFound} />
       </Switch>
     </BrowserRouter>
   );
