@@ -16,9 +16,13 @@ const RegisterStateful = () => {
   useEffect(() => {
     return () => {
       dispatch(QhatuAction.alertMessageAction(false));
-      dispatch(QhatuAction.modalAction(false));
+      closeModal();
     };
   }, []);
+
+  const closeModal = () => {
+    dispatch(QhatuAction.modalAction(false));
+  };
 
   const refFirstName = useRef(null);
   const refLastName = useRef(null);
@@ -46,28 +50,42 @@ const RegisterStateful = () => {
       address &&
       password
     ) {
-      const userToSignUp = {
-        firstName,
-        lastName,
-        email,
-        documentNumber,
-        phoneNumber,
-        address,
-        password,
-      };
-
-      const resultSignUp = await AuthenticationService.SignUp(userToSignUp);
-      if (resultSignUp.success) {
+      const currentUser = await AuthenticationService.ValidateUser(email);
+      if (currentUser) {
         dispatch(
           QhatuAction.modalAction(
             true,
-            'Bienvenido 😁',
-            'El usuario se registró correctamente.',
             () => {
-              history.push('/login');
-            }
+              closeModal();
+            },
+            'Lo sentimos 😔',
+            'El usuario ya se encuentra registrado.'
           )
         );
+      } else {
+        const userToSignUp = {
+          firstName,
+          lastName,
+          email,
+          documentNumber,
+          phoneNumber,
+          address,
+          password,
+        };
+
+        const resultSignUp = await AuthenticationService.SignUp(userToSignUp);
+        if (resultSignUp.success) {
+          dispatch(
+            QhatuAction.modalAction(
+              true,
+              () => {
+                history.push('/login');
+              },
+              'Bienvenido 😁',
+              'El usuario se registró correctamente.'
+            )
+          );
+        }
       }
     } else {
       dispatch(

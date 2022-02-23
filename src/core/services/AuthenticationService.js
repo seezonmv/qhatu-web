@@ -32,9 +32,19 @@ const SignUp = async (userToSignUp) => {
   };
 };
 
+const ValidateUser = async (username) => {
+  const pathValidateUser = process.env.REACT_APP_QHATU_API_PATH_USER_EXISTS;
+  const userResponse = await instance.get(`${pathValidateUser}/${username}`);
+  return {
+    success: userResponse.status === 200,
+    data: userResponse.status === 200 ? userResponse.data : undefined,
+  };
+};
+
 const AuthenticationService = {
   SignIn,
   SignUp,
+  ValidateUser,
 };
 
 export default AuthenticationService;
