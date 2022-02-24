@@ -4,7 +4,7 @@ import Logo from '../../components/logo/Logo';
 import Alert from '../../components/alert/Alert';
 import Modal from '../../components/modal/Modal';
 
-const RegisterStateless = ({
+const RegisterStl = ({
   modal,
   alertMessage,
   refFirstName,
@@ -127,4 +127,4 @@ const RegisterStateless = ({
   );
 };
 
-export default RegisterStateless;
+export default RegisterStl;

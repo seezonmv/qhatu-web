@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom';
 
 import AuthenticationService from '../../core/services/AuthenticationService';
 import RegexValidations from '../../core/pipes/RegexValidations';
-import RegisterStateless from './RegisterStateless';
+import RegisterStl from './RegisterStl';
 import { useSelector, useDispatch } from 'react-redux';
 import QhatuAction from '../../core/actions/qhatuAction';
 
-const RegisterStateful = () => {
+const RegisterStf = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const alertMessage = useSelector((state) => state.alertMessage);
@@ -114,7 +114,7 @@ const RegisterStateful = () => {
   };
 
   return (
-    <RegisterStateless
+    <RegisterStl
       modal={modal}
       alertMessage={alertMessage}
       refFirstName={refFirstName}
@@ -130,4 +130,4 @@ const RegisterStateful = () => {
   );
 };
 
-export default RegisterStateful;
+export default RegisterStf;

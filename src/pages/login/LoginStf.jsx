@@ -2,11 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import AuthenticationService from '../../core/services/AuthenticationService';
 import RegexValidations from '../../core/pipes/RegexValidations';
 import TokenService from '../../core/services/TokenService';
-import LoginStatetess from './LoginStateless';
+import LoginStl from './LoginStl';
 import { useSelector, useDispatch } from 'react-redux';
 import QhatuAction from '../../core/actions/qhatuAction';
 
-const LoginStateful = () => {
+const LoginStf = () => {
   const dispatch = useDispatch();
   const alertMessage = useSelector((state) => state.alertMessage);
   const refEmail = useRef(null);
@@ -66,7 +66,7 @@ const LoginStateful = () => {
   };
 
   return (
-    <LoginStatetess
+    <LoginStl
       refEmail={refEmail}
       refPassword={refPassword}
       handleChangeInput={handleChangeInput}
@@ -76,4 +76,4 @@ const LoginStateful = () => {
   );
 };
 
-export default LoginStateful;
+export default LoginStf;

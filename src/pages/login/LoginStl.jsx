@@ -3,7 +3,7 @@ import Logo from '../../components/logo/Logo';
 import { Link } from 'react-router-dom';
 import Alert from '../../components/alert/Alert';
 
-const LoginStateless = ({
+const LoginStl = ({
   refEmail,
   refPassword,
   handleChangeInput,
@@ -24,6 +24,7 @@ const LoginStateless = ({
           placeholder="Correo Electronico"
           ref={refEmail}
           onChange={handleChangeInput}
+          value="admin@newhorizons.edu.pe"
         />
         <label htmlFor="txtEmail">Correo Electronico</label>
       </div>
@@ -35,6 +36,7 @@ const LoginStateless = ({
           placeholder="Contraseña"
           ref={refPassword}
           onChange={handleChangeInput}
+          value="NewHorizons2022"
         />
         <label htmlFor="txtPassword">Contraseña</label>
       </div>
@@ -59,4 +61,4 @@ const LoginStateless = ({
   );
 };
 
-export default LoginStateless;
+export default LoginStl;

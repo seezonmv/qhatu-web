@@ -1,27 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import CardLoader from '../../components/loader/CardLoader';
-import RickAndMortyService from '../../core/services/RickAndMortyService';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-const Home = () => {
-  const [characters, setCharacters] = useState({
-    loading: true,
-    data: undefined,
-  });
-
-  const getCharacters = async () => {
-    setCharacters({ loading: true });
-    const dataCharacters = await RickAndMortyService.getCharacters();
-
-    setCharacters({
-      loading: false,
-      data: dataCharacters,
-    });
-  };
-
-  useEffect(() => {
-    getCharacters();
-  }, []);
-
+const HomeStl = ({ characters, handleClickCharacters }) => {
   return (
     <>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -31,6 +12,27 @@ const Home = () => {
         <CardLoader />
       ) : (
         <>
+          <div className="row">
+            <div className="col mb-3">
+              <button
+                className="btn btn-primary float-start"
+                type="button"
+                style={{ marginLeft: '-10px' }}
+                disabled={characters.prev === null}
+                onClick={() => handleClickCharacters(characters.prev)}
+              >
+                <FaChevronLeft />
+              </button>
+              <button
+                className="btn btn-primary float-end"
+                type="button"
+                disabled={characters.next === null}
+                onClick={() => handleClickCharacters(characters.next)}
+              >
+                <FaChevronRight />
+              </button>
+            </div>
+          </div>
           <div className="row row-cols-md-2">
             {characters.data.map((character) => {
               return (
@@ -76,4 +78,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeStl;
