@@ -10,9 +10,7 @@ const getAll = async () => {
       success: categoriesReponse.status === 200,
       data: categoriesReponse.data,
     };
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 const getById = async (categoryId) => {
@@ -27,9 +25,7 @@ const getById = async (categoryId) => {
       success: categoryReponse.status === 200,
       data: categoryReponse.data,
     };
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 const CategoryService = {

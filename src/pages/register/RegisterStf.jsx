@@ -50,43 +50,43 @@ const RegisterStf = () => {
       address &&
       password
     ) {
-      const currentUser = await AuthenticationService.ValidateUser(email);
-      if (currentUser) {
+      //const currentUser = await AuthenticationService.ValidateUser(email);
+      // if (currentUser) {
+      //   dispatch(
+      //     QhatuAction.modalAction(
+      //       true,
+      //       () => {
+      //         closeModal();
+      //       },
+      //       'Lo sentimos 😔',
+      //       'El usuario ya se encuentra registrado.'
+      //     )
+      //   );
+      // } else {
+      const userToSignUp = {
+        firstName,
+        lastName,
+        email,
+        documentNumber,
+        phoneNumber,
+        address,
+        password,
+      };
+
+      const resultSignUp = await AuthenticationService.SignUp(userToSignUp);
+      if (resultSignUp.success) {
         dispatch(
           QhatuAction.modalAction(
             true,
             () => {
-              closeModal();
+              history.push('/login');
             },
-            'Lo sentimos 😔',
-            'El usuario ya se encuentra registrado.'
+            'Bienvenido 😁',
+            'El usuario se registró correctamente.'
           )
         );
-      } else {
-        const userToSignUp = {
-          firstName,
-          lastName,
-          email,
-          documentNumber,
-          phoneNumber,
-          address,
-          password,
-        };
-
-        const resultSignUp = await AuthenticationService.SignUp(userToSignUp);
-        if (resultSignUp.success) {
-          dispatch(
-            QhatuAction.modalAction(
-              true,
-              () => {
-                history.push('/login');
-              },
-              'Bienvenido 😁',
-              'El usuario se registró correctamente.'
-            )
-          );
-        }
       }
+      //}
     } else {
       dispatch(
         QhatuAction.alertMessageAction(

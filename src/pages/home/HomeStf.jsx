@@ -15,7 +15,6 @@ const Home = () => {
     const { prev, data, next } = await RickAndMortyService.getCharacters(
       apiUrl
     );
-    console.log(prev, data, next);
     setCharacters({
       loading: false,
       prev: prev,

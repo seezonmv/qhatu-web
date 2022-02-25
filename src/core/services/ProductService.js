@@ -10,9 +10,7 @@ const getAll = async () => {
       success: productsReponse.status === 200,
       data: productsReponse.data,
     };
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 const getById = async (productId) => {
@@ -27,9 +25,7 @@ const getById = async (productId) => {
       success: productReponse.status === 200,
       data: productReponse.data,
     };
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 const validateStock = async (productId, quantity) => {
@@ -44,9 +40,7 @@ const validateStock = async (productId, quantity) => {
       success: productReponse.status === 200,
       data: productReponse.data,
     };
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 const ProductService = {

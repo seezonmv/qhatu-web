@@ -11,9 +11,7 @@ const updateUser = async (userData) => {
       success: userResponse.status === 200,
       data: userResponse.data,
     };
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 const UserService = {

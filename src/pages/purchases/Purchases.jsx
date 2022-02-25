@@ -12,9 +12,7 @@ const Purchases = () => {
       setProducts({ loading: true });
       const products = await instance.get('/gtw-prd/products/getAll');
       setProducts({ loading: false, data: products.data });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
