@@ -3,14 +3,13 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 import { Provider } from 'react-redux';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import qhatuStore from './core/stores/qhatuStore';
-
-const theme = createTheme();
+import qhatuThem from './core/theme/qhatuTheme';
 
 ReactDOM.render(
   <Provider store={qhatuStore}>
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={qhatuThem}>
       <App />
     </ThemeProvider>
   </Provider>,

@@ -19,7 +19,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Logout from '@mui/icons-material/Logout';
 import Tooltip from '@mui/material/Tooltip';
 import Avatar from '@mui/material/Avatar';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { mainListItems } from './listItems';
 import TokenService from '../../../core/services/TokenService';
@@ -73,7 +72,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const PrivateLayout = ({ children }) => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -123,7 +122,7 @@ const PrivateLayout = ({ children }) => {
               Qhatu
             </Typography>
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
+              <Badge badgeContent={0} color="secondary">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
@@ -219,7 +218,7 @@ const PrivateLayout = ({ children }) => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
-          <Avatar /> Perfil
+          <Avatar /> Mi Perfil
         </MenuItem>
         <MenuItem>
           <Avatar /> Mi Cuenta
