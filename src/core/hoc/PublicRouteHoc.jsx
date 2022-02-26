@@ -11,10 +11,10 @@ const PublicRouteHoc = ({ component: Component, path }) => {
       path={path}
       render={() =>
         userData === null ? (
-          // <PublicLayout>
-          <Component />
+          <PublicLayout>
+            <Component />
+          </PublicLayout>
         ) : (
-          // </PublicLayout>
           <Redirect to="/home" />
         )
       }

@@ -5,7 +5,7 @@ import NotFound from './pages/404/NotFound';
 
 import HomeStf from './pages/home/HomeStf';
 import LoginStf from './pages/login/LoginStf';
-import Purchases from './pages/purchases/Purchases';
+import PurchasesSfl from './pages/purchases/PurchasesSfl';
 import RegisterStf from './pages/register/RegisterStf';
 
 const App = () => {
@@ -15,7 +15,7 @@ const App = () => {
         <PublicRouteHoc path="/login" component={LoginStf} />
         <PublicRouteHoc path="/register" component={RegisterStf} />
         <PrivateRouteHoc path="/home" component={HomeStf} />
-        <PrivateRouteHoc path="/purchases" component={Purchases} />
+        <PrivateRouteHoc path="/purchases" component={PurchasesSfl} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
