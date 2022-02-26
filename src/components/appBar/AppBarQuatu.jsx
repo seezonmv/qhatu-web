@@ -13,6 +13,7 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { MenuQhatu } from '../menu/MenuQhatu';
+import { useSelector } from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -66,6 +67,7 @@ const AppBarQuatu = ({
   handleClickMyProfile,
   openMyProfile,
 }) => {
+  const shoppingCart = useSelector((state) => state.shoppingCart);
   return (
     <>
       <AppBar position="absolute" open={openMenu}>
@@ -100,7 +102,7 @@ const AppBarQuatu = ({
             Qhatu
           </Typography>
           <IconButton color="inherit">
-            <Badge badgeContent={0} color="secondary">
+            <Badge badgeContent={shoppingCart.length} color="warning">
               <ShoppingCartIcon />
             </Badge>
           </IconButton>

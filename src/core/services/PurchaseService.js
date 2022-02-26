@@ -11,9 +11,7 @@ const add = async (purchase) => {
       success: purchaseReponse.status === 200,
       data: purchaseReponse.data,
     };
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 const PurchaseService = {

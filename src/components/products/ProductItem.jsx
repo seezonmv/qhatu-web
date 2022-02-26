@@ -7,10 +7,17 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { useDispatch } from 'react-redux';
+import QhatuAction from '../../core/actions/qhatuAction';
 
 const ProductItem = ({ product }) => {
+  const dispatch = useDispatch();
+  const handleClickAddCart = (id) => {
+    dispatch(QhatuAction.shoppingCartAction(id));
+  };
+
   return (
-    <Grid item xs={3} key={product.id}>
+    <Grid item xs={3}>
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
           component="img"
@@ -34,6 +41,7 @@ const ProductItem = ({ product }) => {
         </CardContent>
         <CardActions>
           <Button
+            onClick={() => handleClickAddCart(product.id)}
             sx={{
               display: 'flex',
               flexDirection: 'column',

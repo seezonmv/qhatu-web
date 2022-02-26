@@ -31,10 +31,21 @@ const modalAction = (
   };
 };
 
+const shoppingCartAction = (id = 0) => {
+  return {
+    type: '@qhatu/callShoppingCart',
+    payload: {
+      id: id,
+      quantity: 1,
+    },
+  };
+};
+
 const QhatuAction = {
   userDataAction,
   alertMessageAction,
   modalAction,
+  shoppingCartAction,
 };
 
 export default QhatuAction;
