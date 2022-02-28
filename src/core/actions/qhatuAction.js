@@ -4,18 +4,18 @@ const userDataAction = () => {
   };
 };
 
-const alertMessageAction = (visibility = false, message = '') => {
+const alertMessageAction = (open = false, message = '') => {
   return {
     type: '@qhatu/callAlertMessage',
     payload: {
-      visibility: visibility,
+      open: open,
       message: message,
     },
   };
 };
 
 const modalAction = (
-  visibility = false,
+  open = false,
   callback = () => {},
   title = '',
   subtitle = ''
@@ -23,7 +23,7 @@ const modalAction = (
   return {
     type: '@qhatu/callModal',
     payload: {
-      visibility: visibility,
+      open: open,
       callback: callback,
       title: title,
       subtitle: subtitle,

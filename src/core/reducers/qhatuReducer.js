@@ -31,7 +31,6 @@ const qhatuReducer = (state, action) => {
       if (!exists) {
         newShoppingCart.push(newProduct);
       }
-      console.log(newShoppingCart);
       return {
         ...state,
         shoppingCart: [...newShoppingCart],

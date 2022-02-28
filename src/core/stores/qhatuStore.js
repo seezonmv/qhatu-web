@@ -6,11 +6,14 @@ const qhatuState = {
   userData: TokenService.getUserData(),
   shoppingCart: [],
   alertMessage: {
-    visibility: false,
+    open: false,
     message: '',
   },
+  backdrop: {
+    open: false,
+  },
   modal: {
-    visibility: false,
+    open: false,
     title: '',
     subtitle: '',
     callback: () => {},
