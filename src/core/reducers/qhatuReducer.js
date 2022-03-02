@@ -1,3 +1,4 @@
+import ArrayUtils from '../pipes/ArraysUtils';
 import TokenService from '../services/TokenService';
 
 const qhatuReducer = (state, action) => {
@@ -17,6 +18,11 @@ const qhatuReducer = (state, action) => {
         ...state,
         modal: action.payload,
       };
+    case '@qhatu/callBackdrop':
+      return {
+        ...state,
+        backdrop: action.payload,
+      };
     case '@qhatu/callShoppingCart':
       let newProduct = action.payload;
       let currentShoppingCart = state.shoppingCart;
@@ -31,9 +37,15 @@ const qhatuReducer = (state, action) => {
       if (!exists) {
         newShoppingCart.push(newProduct);
       }
+      let totalQuantity = 0;
+      if (newShoppingCart.length > 0) {
+        totalQuantity = ArrayUtils.sum(newShoppingCart);
+      }
+
       return {
         ...state,
         shoppingCart: [...newShoppingCart],
+        countShoppingCart: totalQuantity,
       };
     default:
       return state;

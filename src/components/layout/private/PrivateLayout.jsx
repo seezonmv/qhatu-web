@@ -6,9 +6,12 @@ import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import AppBarQuatu from '../../appBar/AppBarQuatu';
 import MenuUser from '../../menu/MenuUser';
+import BackdropLoader from '../../loader/BackdropLoader';
+import { useSelector } from 'react-redux';
 
 const PrivateLayout = ({ children }) => {
   const [openMenu, setOpenMenu] = React.useState(false);
+  const backdrop = useSelector((state) => state.backdrop);
   const toggleDrawerMenu = () => {
     setOpenMenu(!openMenu);
   };
@@ -63,6 +66,7 @@ const PrivateLayout = ({ children }) => {
         openMyProfile={openMyProfile}
         handleClose={handleClose}
       />
+      <BackdropLoader open={backdrop.open} />
     </>
   );
 };

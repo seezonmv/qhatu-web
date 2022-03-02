@@ -16,6 +16,11 @@ const getUserData = () => {
   return JSON.parse(localStorage.getItem('USER_DATA'));
 };
 
+const getUserId = () => {
+  const userData = getUserData();
+  return userData.id;
+};
+
 const updateAccessToken = (token) => {
   const userData = JSON.parse(localStorage.getItem('USER_DATA'));
   userData.access_token = token;
@@ -33,6 +38,7 @@ const TokenService = {
   getAccessToken,
   getRefreshToken,
   updateAccessToken,
+  getUserId,
 };
 
 export default TokenService;

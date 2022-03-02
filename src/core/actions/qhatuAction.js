@@ -31,6 +31,15 @@ const modalAction = (
   };
 };
 
+const backdropAction = (open = false) => {
+  return {
+    type: '@qhatu/callBackdrop',
+    payload: {
+      open: open,
+    },
+  };
+};
+
 const shoppingCartAction = (id = 0) => {
   return {
     type: '@qhatu/callShoppingCart',
@@ -45,6 +54,7 @@ const QhatuAction = {
   userDataAction,
   alertMessageAction,
   modalAction,
+  backdropAction,
   shoppingCartAction,
 };
 

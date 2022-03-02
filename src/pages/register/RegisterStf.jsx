@@ -72,8 +72,9 @@ const RegisterStf = () => {
         address,
         password,
       };
-
+      dispatch(QhatuAction.backdropAction(true));
       const resultSignUp = await AuthenticationService.SignUp(userToSignUp);
+      dispatch(QhatuAction.backdropAction(false));
       if (resultSignUp.success) {
         dispatch(
           QhatuAction.modalAction(

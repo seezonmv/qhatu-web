@@ -29,7 +29,9 @@ const LoginStf = () => {
       };
 
       try {
+        dispatch(QhatuAction.backdropAction(true));
         const resultSignIn = await AuthenticationService.SignIn(userToSignIn);
+        dispatch(QhatuAction.backdropAction(false));
         if (resultSignIn.success) {
           TokenService.setUserData(resultSignIn.data);
           dispatch(QhatuAction.userDataAction());

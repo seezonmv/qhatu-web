@@ -4,6 +4,7 @@ import qhatuReducer from '../reducers/qhatuReducer';
 
 const qhatuState = {
   userData: TokenService.getUserData(),
+  countShoppingCart: 0,
   shoppingCart: [],
   alertMessage: {
     open: false,

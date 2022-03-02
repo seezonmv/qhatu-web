@@ -3,8 +3,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import BackdropLoader from '../../loader/BackdropLoader';
+import { useSelector } from 'react-redux';
 
 const PublicLayout = ({ children }) => {
+  const backdrop = useSelector((state) => state.backdrop);
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -25,6 +28,7 @@ const PublicLayout = ({ children }) => {
         </Typography>
         {children}
       </Box>
+      <BackdropLoader open={backdrop.open} />
     </Container>
   );
 };
