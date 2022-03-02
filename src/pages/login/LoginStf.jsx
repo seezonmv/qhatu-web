@@ -1,23 +1,20 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import AuthenticationService from '../../core/services/AuthenticationService';
 import RegexValidations from '../../core/pipes/RegexValidations';
 import TokenService from '../../core/services/TokenService';
-import GlobalContext from '../../core/contexts/GlobalContext';
-import LoginStatetess from './LoginStateless';
+import LoginStl from './LoginStl';
+import { useSelector, useDispatch } from 'react-redux';
+import QhatuAction from '../../core/actions/qhatuAction';
 
-const LoginStateful = () => {
-  const { refreshUserData, alertMessage, refreshAlertMessage } =
-    useContext(GlobalContext);
-
+const LoginStf = () => {
+  const dispatch = useDispatch();
+  const alertMessage = useSelector((state) => state.alertMessage);
   const refEmail = useRef(null);
   const refPassword = useRef(null);
 
   useEffect(() => {
     return () => {
-      refreshAlertMessage({
-        visibility: false,
-        message: '',
-      });
+      dispatch(QhatuAction.alertMessageAction(false, ''));
     };
   }, []);
 
@@ -32,27 +29,25 @@ const LoginStateful = () => {
       };
 
       try {
+        dispatch(QhatuAction.backdropAction(true));
         const resultSignIn = await AuthenticationService.SignIn(userToSignIn);
+        dispatch(QhatuAction.backdropAction(false));
         if (resultSignIn.success) {
           TokenService.setUserData(resultSignIn.data);
-          refreshUserData();
+          dispatch(QhatuAction.userDataAction());
         }
-        refreshAlertMessage({
-          visibility: false,
-          message: '',
-        });
       } catch (error) {
-        refreshAlertMessage({
-          visibility: true,
-          message: 'Usuario y/o contraseña incorrecta.',
-        });
+        dispatch(
+          QhatuAction.userDataAction(true, 'Usuario y/o contraseña incorrecta.')
+        );
       }
     } else {
-      refreshAlertMessage({
-        visibility: true,
-        message:
-          'Debe ingresar un usuario y contraseña para entrar a la aplicación',
-      });
+      dispatch(
+        QhatuAction.alertMessageAction(
+          true,
+          'Debe ingresar un usuario y contraseña para entrar a la aplicación'
+        )
+      );
     }
   };
 
@@ -69,14 +64,11 @@ const LoginStateful = () => {
         ? 'El correo no es válido'
         : 'La contraseña debe tener un minimo de 6 caracteres.';
 
-    refreshAlertMessage({
-      visibility: !isValid,
-      message: messageValidation,
-    });
+    dispatch(QhatuAction.alertMessageAction(!isValid, messageValidation));
   };
 
   return (
-    <LoginStatetess
+    <LoginStl
       refEmail={refEmail}
       refPassword={refPassword}
       handleChangeInput={handleChangeInput}
@@ -86,4 +78,4 @@ const LoginStateful = () => {
   );
 };
 
-export default LoginStateful;
+export default LoginStf;

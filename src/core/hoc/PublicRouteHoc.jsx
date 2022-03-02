@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom/cjs/react-router-dom.min';
 import PublicLayout from '../../components/layout/public/PublicLayout';
-import GlobalContext from '../contexts/GlobalContext';
 
 const PublicRouteHoc = ({ component: Component, path }) => {
-  const { userData } = useContext(GlobalContext);
+  const userData = useSelector((state) => state.userData);
   return (
     <Route
       exact

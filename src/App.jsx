@@ -1,23 +1,27 @@
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import PrivateRouteHoc from './core/hoc/PrivateRouteHoc';
 import PublicRouteHoc from './core/hoc/PublicRouteHoc';
+import NotFound from './pages/404/NotFound';
 
-import Home from './pages/home/Home';
-import LoginStateful from './pages/login/LoginStateful';
-import Purchases from './pages/purchases/Purchases';
-import RegisterStateful from './pages/register/RegisterStateful';
+import HomeStf from './pages/home/HomeStf';
+import LoginStf from './pages/login/LoginStf';
+import PurchasesSfl from './pages/purchases/PurchasesSfl';
+import RegisterStf from './pages/register/RegisterStf';
+import ShoppingCartStf from './pages/shoppingcart/ShoppingCartStf';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <PublicRouteHoc path="/login" component={LoginStateful} />
-        <PublicRouteHoc path="/register" component={RegisterStateful} />
-        <PrivateRouteHoc path="/home" component={Home} />
-        <PrivateRouteHoc path="/purchases" component={Purchases} />
+        <PublicRouteHoc path="/login" component={LoginStf} />
+        <PublicRouteHoc path="/register" component={RegisterStf} />
+        <PrivateRouteHoc path="/home" component={HomeStf} />
+        <PrivateRouteHoc path="/purchases" component={PurchasesSfl} />
+        <PrivateRouteHoc path="/shoppingcart" component={ShoppingCartStf} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
+        <Route component={NotFound} />
       </Switch>
     </BrowserRouter>
   );

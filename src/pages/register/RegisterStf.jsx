@@ -1,23 +1,28 @@
-import React, { useRef, useContext, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import AuthenticationService from '../../core/services/AuthenticationService';
 import RegexValidations from '../../core/pipes/RegexValidations';
-import GlobalContext from '../../core/contexts/GlobalContext';
-import RegisterStateless from './RegisterStateless';
+import RegisterStl from './RegisterStl';
+import { useSelector, useDispatch } from 'react-redux';
+import QhatuAction from '../../core/actions/qhatuAction';
 
-const RegisterStateful = () => {
+const RegisterStf = () => {
   const history = useHistory();
-
-  const { alertMessage, refreshAlertMessage, modal, refreshModal } =
-    useContext(GlobalContext);
+  const dispatch = useDispatch();
+  const alertMessage = useSelector((state) => state.alertMessage);
+  const modal = useSelector((state) => state.modal);
 
   useEffect(() => {
     return () => {
-      refreshAlertMessage({ visibility: false });
-      refreshModal({ visibility: false });
+      dispatch(QhatuAction.alertMessageAction(false));
+      closeModal();
     };
   }, []);
+
+  const closeModal = () => {
+    dispatch(QhatuAction.modalAction(false));
+  };
 
   const refFirstName = useRef(null);
   const refLastName = useRef(null);
@@ -45,6 +50,19 @@ const RegisterStateful = () => {
       address &&
       password
     ) {
+      //const currentUser = await AuthenticationService.ValidateUser(email);
+      // if (currentUser) {
+      //   dispatch(
+      //     QhatuAction.modalAction(
+      //       true,
+      //       () => {
+      //         closeModal();
+      //       },
+      //       'Lo sentimos 😔',
+      //       'El usuario ya se encuentra registrado.'
+      //     )
+      //   );
+      // } else {
       const userToSignUp = {
         firstName,
         lastName,
@@ -54,24 +72,29 @@ const RegisterStateful = () => {
         address,
         password,
       };
-
+      dispatch(QhatuAction.backdropAction(true));
       const resultSignUp = await AuthenticationService.SignUp(userToSignUp);
+      dispatch(QhatuAction.backdropAction(false));
       if (resultSignUp.success) {
-        refreshModal({
-          visibility: true,
-          title: 'Bienvenido 😁',
-          subtitle: 'El usuario se registró correctamente.',
-          callback: () => {
-            history.push('/login');
-          },
-        });
+        dispatch(
+          QhatuAction.modalAction(
+            true,
+            () => {
+              history.push('/login');
+            },
+            'Bienvenido 😁',
+            'El usuario se registró correctamente.'
+          )
+        );
       }
+      //}
     } else {
-      refreshAlertMessage({
-        visibility: true,
-        message:
-          'Debe ingresar nombres, apellidos, correo y una contraseña para poderse registrar.',
-      });
+      dispatch(
+        QhatuAction.alertMessageAction(
+          true,
+          'Debe ingresar nombres, apellidos, correo y una contraseña para poderse registrar.'
+        )
+      );
     }
   };
 
@@ -88,14 +111,11 @@ const RegisterStateful = () => {
         ? 'Debe ingresar un correo válido.'
         : 'Debe ingresar mas de 6 caracteres.';
 
-    refreshAlertMessage({
-      visibility: !isValid,
-      message: messageValidation,
-    });
+    dispatch(QhatuAction.alertMessageAction(!isValid, messageValidation));
   };
 
   return (
-    <RegisterStateless
+    <RegisterStl
       modal={modal}
       alertMessage={alertMessage}
       refFirstName={refFirstName}
@@ -111,4 +131,4 @@ const RegisterStateful = () => {
   );
 };
 
-export default RegisterStateful;
+export default RegisterStf;

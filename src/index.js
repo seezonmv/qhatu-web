@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 import App from './App';
-import GlobalProvider from './core/providers/GlobalProvider';
+
+import { Provider } from 'react-redux';
+import { ThemeProvider } from '@mui/material/styles';
+import qhatuStore from './core/stores/qhatuStore';
+import qhatuThem from './core/theme/qhatuTheme';
 
 ReactDOM.render(
-  <GlobalProvider>
-    <App />
-  </GlobalProvider>,
+  <Provider store={qhatuStore}>
+    <ThemeProvider theme={qhatuThem}>
+      <App />
+    </ThemeProvider>
+  </Provider>,
   document.getElementById('app')
 );
