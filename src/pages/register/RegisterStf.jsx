@@ -11,7 +11,6 @@ const RegisterStf = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const alertMessage = useSelector((state) => state.alertMessage);
-  const modal = useSelector((state) => state.modal);
 
   useEffect(() => {
     return () => {
@@ -116,7 +115,6 @@ const RegisterStf = () => {
 
   return (
     <RegisterStl
-      modal={modal}
       alertMessage={alertMessage}
       refFirstName={refFirstName}
       refLastName={refLastName}

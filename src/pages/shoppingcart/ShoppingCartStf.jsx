@@ -67,6 +67,7 @@ const ShoppingCartStf = () => {
       };
       const responsePurchase = await PurchaseService.add(objPurchase);
       if (responsePurchase.success) {
+        TokenService.removeShoppingCart();
         dispatch(
           QhatuAction.modalAction(
             true,
