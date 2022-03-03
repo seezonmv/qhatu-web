@@ -7,9 +7,12 @@ import Grid from '@mui/material/Grid';
 import { Avatar } from '@mui/material';
 import { TextField } from '@mui/material';
 import { Button } from '@mui/material';
+import { Box } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const ShoppingCartStl = ({
   products,
+  totalCart,
   refPaymentMethod,
   refComment,
   savePurchase,
@@ -51,47 +54,58 @@ const ShoppingCartStl = ({
           <List disablePadding>
             {products.map((product) => (
               <ListItem key={product.id} sx={{ py: 1, px: 0 }}>
-                <Avatar
-                  variant="square"
-                  sx={{ width: 100, height: 100 }}
-                  alt="Remy Sharp"
-                  src={product.imageUrl}
-                />
+                <Box sx={{ m: 2 }}>
+                  <Avatar
+                    variant="square"
+                    sx={{ width: 100, height: 100 }}
+                    alt="Producto"
+                    src={product.imageUrl}
+                  />
+                </Box>
+
                 <ListItemText
                   primary={product.name}
                   secondary={'SKU:' + product.sku}
                 />
-                <Typography variant="body2">
-                  {'S/. ' + product.salePrice}
+
+                <Typography>
+                  <ListItemText
+                    primary={'S/. ' + product.total.toFixed(2)}
+                    secondary={`${
+                      product.quantity
+                    } x  ${product.salePrice.toFixed(2)}`}
+                  />
                 </Typography>
               </ListItem>
             ))}
 
             <ListItem sx={{ py: 1, px: 0 }}>
-              <ListItemText primary="Total" />
-              <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                $34.06
+              <ListItemText
+                primary="Total"
+                primaryTypographyProps={{
+                  fontSize: 18,
+                  fontWeight: 'medium',
+                  lineHeight: '20px',
+                  mb: '2px',
+                }}
+              />
+              <Typography sx={{ fontWeight: 700 }}>
+                {'S/. ' + totalCart.toFixed(2)}
               </Typography>
             </ListItem>
           </List>
           <br />
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item container direction="column" xs={12}>
               <Button
                 onClick={savePurchase}
                 variant="contained"
                 size="large"
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-end',
-                  marginLeft: 'auto',
-                }}
+                startIcon={<ShoppingCartIcon />}
               >
-                Registrar
+                Comprar
               </Button>
             </Grid>
-            <Grid item container direction="column" xs={12} sm={6}></Grid>
           </Grid>
         </Grid>
       </Grid>

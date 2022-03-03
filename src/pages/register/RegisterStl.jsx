@@ -27,14 +27,6 @@ const RegisterStl = ({
 }) => {
   return (
     <>
-      {modal.visibility ? (
-        <ModalQhatu
-          open={modal.visibility}
-          callback={modal.callback}
-          title={modal.title}
-          subtitle={modal.subtitle}
-        />
-      ) : null}
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField

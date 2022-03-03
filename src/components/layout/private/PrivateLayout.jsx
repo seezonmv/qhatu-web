@@ -8,10 +8,12 @@ import AppBarQuatu from '../../appBar/AppBarQuatu';
 import MenuUser from '../../menu/MenuUser';
 import BackdropLoader from '../../loader/BackdropLoader';
 import { useSelector } from 'react-redux';
+import ModalQhatu from '../../modal/ModalQhatu';
 
 const PrivateLayout = ({ children }) => {
   const [openMenu, setOpenMenu] = React.useState(false);
   const backdrop = useSelector((state) => state.backdrop);
+  const modal = useSelector((state) => state.modal);
   const toggleDrawerMenu = () => {
     setOpenMenu(!openMenu);
   };
@@ -67,6 +69,14 @@ const PrivateLayout = ({ children }) => {
         handleClose={handleClose}
       />
       <BackdropLoader open={backdrop.open} />
+      {modal.open ? (
+        <ModalQhatu
+          open={modal.open}
+          callback={modal.callback}
+          title={modal.title}
+          subtitle={modal.subtitle}
+        />
+      ) : null}
     </>
   );
 };
