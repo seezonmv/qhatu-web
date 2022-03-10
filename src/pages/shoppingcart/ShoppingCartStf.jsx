@@ -72,7 +72,7 @@ const ShoppingCartStf = () => {
           QhatuAction.modalAction(
             true,
             () => {
-              history.push('/purchase');
+              history.push('/purchases');
             },
             'Gracias 😁',
             'Tu compra se ha realizado correctamente.'

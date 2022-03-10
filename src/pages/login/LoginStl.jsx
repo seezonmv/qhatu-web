@@ -27,7 +27,6 @@ const LoginStl = ({
           autoFocus
           inputRef={refEmail}
           onChange={handleChangeInput}
-          value="admin@newhorizons.edu.pe"
         />
         <TextField
           margin="normal"
@@ -39,7 +38,6 @@ const LoginStl = ({
           id="txtPassword"
           inputRef={refPassword}
           onChange={handleChangeInput}
-          value="NewHorizons2022"
         />
         <Button
           type="button"
