@@ -1,10 +1,11 @@
 import instance from '../../axios/instance';
+import instanceNest from '../../axios/instanceNest';
 
+//Actualizo para obtener todas las categorias de NestJS
 const getAll = async () => {
   try {
-    const categoriesReponse = await instance.get(
-      process.env.REACT_APP_QHATU_API_PATH_CATEGORIES +
-        process.env.REACT_APP_QHATU_API_PATH_CATEGORIES_GETALL
+    const categoriesReponse = await instanceNest.get(
+      process.env.REACT_APP_QHATU_NESTJS_API_PATH_CATEGORIES
     );
     return {
       success: categoriesReponse.status === 200,
