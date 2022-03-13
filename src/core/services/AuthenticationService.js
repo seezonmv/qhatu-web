@@ -24,6 +24,7 @@ const SignIn = async (userToSignIn) => {
 
 const SignUp = async (userToSignUp) => {
   let pathSignUp = process.env.REACT_APP_QHATU_API_PATH_SIGNUP;
+  console.log(userToSignUp);
   const response = await instance.post(pathSignUp, userToSignUp, {});
 
   return {

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import instance from '../../axios/instance';
 import useFilter from '../../core/customHook/useFilter';
-import { filtersState } from '../../core/recoil/atoms';
+import { filtersAndSortersState } from '../../core/recoil/atoms';
 import CategoryService from '../../core/services/CategoryService';
 import PurchasesStl from './PurchasesStl';
 
@@ -11,10 +11,9 @@ const PurchasesSfl = () => {
     loading: true,
     data: [],
   });
-  const [filters, setFilters] = useRecoilState(filtersState); 
-  const searchRef = useRef(null);
+  const [filtersAndSorters, setFiltersAndSorters] = useRecoilState(filtersAndSortersState); 
+  const searchRef = useRef(null); 
   const [searchText, setSearchText, resultFilter] = useFilter(products);
-  
   const handleOnChangeSearch = () => {
     setSearchText(searchRef.current?.value);
   };
@@ -25,8 +24,7 @@ const PurchasesSfl = () => {
       const productsx = await instance.get('/gtw-prd/products/getAll');
       const categories = await CategoryService.getAll();
       let newArray = categories.data.map(category => {return {...category, selected: false}})
-      console.log('getProducts');
-      setFilters(newArray);
+      setFiltersAndSorters({...filtersAndSorters, filter: newArray});
       setProducts({ loading: false, data: productsx.data });
     } catch (error) {}
   };
@@ -36,7 +34,12 @@ const PurchasesSfl = () => {
   }, []);
 
   
-  return <PurchasesStl products={resultFilter} searchRef={searchRef} searchText={searchText} handleOnChangeSearch={handleOnChangeSearch}/>;
+  return <PurchasesStl  products={resultFilter} 
+                        searchRef={searchRef} 
+                        searchText={searchText} 
+                        handleOnChangeSearch={handleOnChangeSearch}
+                        filtersAndSorters={filtersAndSorters}
+                        setFiltersAndSorters={setFiltersAndSorters}/>;
 };
 
 export default PurchasesSfl;

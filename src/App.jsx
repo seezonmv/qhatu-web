@@ -7,6 +7,7 @@ import HomeStf from './pages/home/HomeStf';
 import LoginStf from './pages/login/LoginStf';
 import PurchasesSfl from './pages/purchases/PurchasesSfl';
 import RegisterStf from './pages/register/RegisterStf';
+import SettingsSfl from './pages/settings/SettingsSfl';
 import ShoppingCartStf from './pages/shoppingcart/ShoppingCartStf';
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <PrivateRouteHoc path="/home" component={HomeStf} />
         <PrivateRouteHoc path="/purchases" component={PurchasesSfl} />
         <PrivateRouteHoc path="/shoppingcart" component={ShoppingCartStf} />
+        <PrivateRouteHoc path="/settings" component={SettingsSfl} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>

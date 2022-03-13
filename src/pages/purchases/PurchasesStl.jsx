@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import ProductContainer from '../../components/products/ProductContainer';
 import CardLoader from '../../components/loader/CardLoader';
 
-const PurchasesStl = ({ products, searchRef, searchText, handleOnChangeSearch }) => {
+const PurchasesStl = ({ products, searchRef, searchText, handleOnChangeSearch, filtersAndSorters, setFiltersAndSorters }) => {
   
   return (
     <>
@@ -15,7 +15,12 @@ const PurchasesStl = ({ products, searchRef, searchText, handleOnChangeSearch })
       {products.loading ? (
         <CardLoader />
       ) : (
-        <ProductContainer products={products}  searchRef={searchRef} searchText={searchText} handleOnChangeSearch={handleOnChangeSearch}/>
+        <ProductContainer   products={products}  
+                            searchRef={searchRef} 
+                            searchText={searchText} 
+                            handleOnChangeSearch={handleOnChangeSearch}
+                            filtersAndSorters={filtersAndSorters}
+                            setFiltersAndSorters={setFiltersAndSorters}/>
       )}
     </>
   );

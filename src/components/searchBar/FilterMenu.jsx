@@ -1,19 +1,19 @@
 import { Box, FormControl, FormControlLabel, FormGroup, FormLabel, Menu, MenuItem, Switch } from '@mui/material';
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import { filtersState } from '../../core/recoil/atoms';
+import { filtersAndSortersState } from '../../core/recoil/atoms';
 
 const FilterMenu = ({ anchorElUser, setAnchorElUser}) => {
-    const [filters, setFilters] = useRecoilState(filtersState);
+    const [filtersAndSorters, setFiltersAndSorters] = useRecoilState(filtersAndSortersState);
 
     const handleChange = (event) => {
-      let newArray = filters.map( category => {
+      let newArray = filtersAndSorters.filter.map( category => {
         if(category.categoryId === parseInt(event.target.name)){
           return {...category, selected: event.target.checked}
         }
         return category;
       });
-      setFilters(newArray);
+      setFiltersAndSorters({...filtersAndSorters, filter: newArray});
       
     };
 
@@ -44,12 +44,12 @@ const FilterMenu = ({ anchorElUser, setAnchorElUser}) => {
                 <FormLabel component="legend">Categoria</FormLabel>
                 <FormGroup>
                     {
-                    filters.map((category, index) => {
+                    filtersAndSorters.filter.map((category, index) => {
                         return (
                         <FormControlLabel 
                             key={index}
                             control={
-                            <Switch checked={category.selected} onChange={handleChange} name={category.categoryId??''} />
+                            <Switch checked={category.selected} onChange={handleChange} name={''+category.categoryId??''} />
                             }
                             label={category.description??''}
                         />
